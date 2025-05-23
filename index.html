@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Wallpaper Generator</title>
+  <style>
+    body.light { background: #ffffff; color: #000; }
+    body.dark { background: #000000; color: #fff; }
+    canvas { border: 1px solid #ccc; margin-top: 10px; }
+    .controls { margin-bottom: 10px; }
+  </style>
+</head>
+<body class="light">
+
+  <div class="controls">
+    <textarea id="prompt" placeholder="Type: beautiful wallpaper with a flower and about beauty is life"></textarea><br/>
+    <select id="resolution">
+      <option value="720x1280">720x1280</option>
+      <option value="1080x1920" selected>1080x1920</option>
+      <option value="1440x2560">1440x2560</option>
+    </select>
+    <button onclick="generateImage()">Generate Wallpaper</button>
+    <button onclick="toggleMode()">Toggle Light/Dark Mode</button>
+    <button onclick="downloadImage()">Download</button>
+  </div>
+
+  <canvas id="canvas" width="1080" height="1920"></canvas>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    function generateImage() {
+      const prompt = document.getElementById('prompt').value;
+      const [w, h] = document.getElementById('resolution').value.split('x');
+      const canvas = document.getElementById('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+
+      // Placeholder: Replace with AI background image (use backend or DALL·E API)
+      ctx.fillStyle = "#88c";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "white";
+      ctx.font = "60px serif";
+      ctx.textAlign = "center";
+      ctx.fillText(prompt, canvas.width / 2, canvas.height / 2);
+    }
+
+    function downloadImage() {
+      const canvas = document.getElementById("canvas");
+      const link = document.createElement("a");
+      link.download = "wallpaper.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+</body>
+  </html>
+  
